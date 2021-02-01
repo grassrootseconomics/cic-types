@@ -8,4 +8,4 @@ default:
 
 test-dev:
   script:
-    - pytest -vv -s --log-cli-level DEBUG --log-level DEBUG --cov=cic_tests --cov-fail-under=90 test
+    - pytest -vv -s --log-cli-level DEBUG --log-level DEBUG --cov=cic_types --cov-fail-under=90 tests
