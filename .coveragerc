@@ -1,0 +1,4 @@
+[report]
+omit =
+	venv/*
+    cic_types/version.py
