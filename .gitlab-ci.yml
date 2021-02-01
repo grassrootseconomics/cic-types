@@ -3,7 +3,7 @@ default:
   before_script:
     - apt-get update
     - apt-get install -y libpq-dev gcc gnupg git
-    - pip install .
+    - pip install -r requirements.txt
     - pip install -r test_requirements.txt
 
 test-dev:
