@@ -1,4 +1,5 @@
 # standard imports
+import os
 from setuptools import setup
 
 # third-party imports
@@ -24,7 +25,15 @@ while True:
     test_requirements.append(test_requirement.rstrip())
 test_requirements_file.close()
 
+
+def version():
+    current_dir = os.path.dirname(__file__)
+    with open(os.path.join(current_dir, 'VERSION')) as f:
+        return f.read().strip()
+
+
 setup(
     install_requires=requirements,
     tests_require=test_requirements,
+    version=version()
 )
