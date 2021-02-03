@@ -1,5 +1,5 @@
 # standard imports
-import logging
+import os
 import subprocess
 import time
 
@@ -8,35 +8,42 @@ import semver
 
 # local imports
 
-logg = logging.getLogger()
-
-version = (0, 1, 0, None)
-
-version_object = semver.VersionInfo(
-        major=version[0],
-        minor=version[1],
-        patch=version[2],
-        prerelease=version[3],
-        )
-
-version_string = str(version_object)
-
 
 def git_hash():
-    git_hash = subprocess.run(['git', 'rev-parse', 'HEAD'], capture_output=True)
-    git_hash_brief = git_hash.stdout.decode('utf-8')[:8]
-    return git_hash_brief
+    build_value = None
+    try:
+        g_hash = subprocess.run(['git', 'rev-parse', 'HEAD'], capture_output=True)
+        build_value = g_hash.stdout.decode('utf-8')[:8]
+        return f'build.{build_value}'
+    except FileNotFoundError:
+        time_string_pair = str(time.time()).split('.')
+        build_value += '+build.{}{:<09d}'.format(
+            time_string_pair[0],
+            int(time_string_pair[1])
+        )
+        return build_value
 
 
-try:
-    version_git = git_hash()
-    version_string += '.build.{}'.format(version_git)
-except FileNotFoundError:
-    time_string_pair = str(time.time()).split('.')
-    version_string += '+build.{}{:<09d}'.format(
-        time_string_pair[0],
-        int(time_string_pair[1]),
-    )
-logg.info(f'Final version string will be {version_string}')
+version = (0, 1, 0, 'alpha.1', git_hash())
 
-__version_string__ = version_string
+version_string = semver.VersionInfo(
+    major=version[0],
+    minor=version[1],
+    patch=version[2],
+    prerelease=version[3],
+    build=version[4]
+)
+
+
+def generate_version_file():
+    root_directory = os.path.dirname(os.path.dirname(__file__))
+    file_name = 'VERSION'
+    file_path = os.path.join(root_directory, file_name)
+    version_file = open(file_path, 'w+')
+    __version__ = str(version_string)
+    version_file.write(__version__)
+    version_file.close()
+
+
+if __name__ == '__main__':
+    generate_version_file()
