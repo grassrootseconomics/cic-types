@@ -1,0 +1,21 @@
+{
+    "type": "object",
+    "properties": {
+        "email": {
+            "type": "string",
+            "format": "email"
+        },
+        "family": {
+            "type": "string",
+            "pattern": "^([a-zA-Z]+)$"
+        },
+        "given": {
+            "type": "string",
+            "pattern": "^([a-zA-Z]+)$"
+        },
+        "tel": {
+            "type": "string",
+            "pattern": "^([+254]?[0-9]{12})$"
+        }
+    }
+}

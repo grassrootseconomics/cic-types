@@ -1,0 +1,49 @@
+{
+    "type": "object",
+    "properties": {
+        "date_registered": {
+            "type": "number",
+            "pattern": "^([0-9]{10})$"
+        },
+        "gender": {"type": "string"},
+        "identities": {
+            "type": "object",
+            "properties": {
+                "type": "object",
+                "properties": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "location": {
+            "type": "object",
+            "properties": {
+                "latitude": {
+                    "type": "string",
+                    "pattern": "^(\\-?([0-8]?[0-9](\\.\\d+)?|90(.[0]+)?)\\s?)$"
+                },
+                "longitude": {
+                    "type": "string",
+                    "pattern": "^(\\-?([1]?[0-7]?[0-9](\\.\\d+)?|180((.[0]+)?)))$"
+                },
+                "external": {"type": "object"}
+            },
+            "required": ["latitude", "longitude"]
+        },
+        "products": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            }
+        },
+        "vcard": {
+            "type": "string",
+            "contentEncoding": "base64",
+            "contentMediaType": "text/html"
+        }
+    },
+    "required": ["date_registered", "gender", "identities", "location", "products", "vcard"]
+}

@@ -5,7 +5,7 @@ import pytest
 from jsonschema.exceptions import ValidationError
 
 # local imports
-from cic_types.schemas.person import person_json_schema, vcard_json_schema
+from cic_types.models.person import vcard_json_schema
 from cic_types.validator import validate_data
 
 
