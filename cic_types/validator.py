@@ -19,7 +19,3 @@ def validate_data(instance: dict, schema: dict):
     """
     validator = Draft7Validator(schema=schema)
     return validator.validate(instance)
-
-
-
-
