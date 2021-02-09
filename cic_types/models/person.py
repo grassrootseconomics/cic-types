@@ -67,6 +67,7 @@ class Person:
         validate_data(instance=v_card_data, schema=vcard_json_schema)
 
         # set values
+        self.schema_version = 1
         self.date_registered = self.person_data.get("date_registered")
         self.age = self.person_data.get("age")
         self.email = v_card_data.get("email")
