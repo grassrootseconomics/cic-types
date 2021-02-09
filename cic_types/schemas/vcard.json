@@ -17,5 +17,6 @@
             "type": "string",
             "pattern": "^([+254]?[0-9]{12})$"
         }
-    }
+    },
+    "required": ["family", "given", "tel"]
 }

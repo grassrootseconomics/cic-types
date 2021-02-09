@@ -5,6 +5,7 @@
             "type": "number",
             "pattern": "^([0-9]{10})$"
         },
+        "age": {"types":  "number"},
         "gender": {"type": "string"},
         "identities": {
             "type": "object",
@@ -21,17 +22,19 @@
         "location": {
             "type": "object",
             "properties": {
+                "area_name": {"type": "string"},
+                "area_type": {"type": [ "string", "null" ]},
                 "latitude": {
-                    "type": "string",
+                    "type": [ "string", "null" ],
                     "pattern": "^(\\-?([0-8]?[0-9](\\.\\d+)?|90(.[0]+)?)\\s?)$"
                 },
                 "longitude": {
-                    "type": "string",
+                    "type": [ "string", "null" ],
                     "pattern": "^(\\-?([1]?[0-7]?[0-9](\\.\\d+)?|180((.[0]+)?)))$"
                 },
                 "external": {"type": "object"}
             },
-            "required": ["latitude", "longitude"]
+            "required": ["area_name"]
         },
         "products": {
             "type": "array",
