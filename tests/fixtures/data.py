@@ -41,10 +41,3 @@ def sample_vcard_data():
     }
 
 
-@pytest.fixture(scope="function")
-def sample_kyc_metadata():
-    return {
-        "identification_document": "PASSPORT",
-        "identification_number": "A78965245"
-    }
-
