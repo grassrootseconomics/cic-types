@@ -1,0 +1,8 @@
+{
+  "type": "object",
+  "properties": {
+    "identification_document": {"type": "string"},
+    "identification_number": {"type": "string"}
+  },
+  "required": ["identification_document", "identification_number"]
+}
