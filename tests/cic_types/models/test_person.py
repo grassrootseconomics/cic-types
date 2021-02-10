@@ -7,7 +7,6 @@ import json
 from cic_types.models.person import (
     Person,
     get_contact_data_from_vcard,
-    generate_metadata_pointer,
     generate_vcard_from_contact_data,
     manage_identity_data
 )
@@ -30,7 +29,7 @@ def test_person(sample_person_metadata):
     assert person.given_name == v_card_data.get("given")
     assert person.tel == v_card_data.get("tel")
 
-    person_serialized = json.loads(person.serialize())
+    person_serialized = person.serialize()
 
     assert person_serialized.get("date_registered") == sample_person_metadata.get("date_registered")
     assert person_serialized.get("gender") == sample_person_metadata.get("gender")
@@ -45,13 +44,6 @@ def test_get_contact_data_from_vcard(sample_person_metadata):
     assert v_card_data.get("family") == "Snow"
     assert v_card_data.get("given") == "Jon"
     assert v_card_data.get("tel") == "+254700000000"
-
-
-def test_generate_metadata_pointer(sample_person_metadata):
-    blockchain_address = sample_person_metadata.get("identities").get("evm").get("Bloxberg:8995")[0]
-    identifier = bytes.fromhex(blockchain_address[2:])
-    metadata_pointer = generate_metadata_pointer(identifier=identifier, cic_type='cic.type')
-    assert len(metadata_pointer) == 64
 
 
 def test_generate_vcard_from_contact_data(sample_person_metadata, sample_vcard_data):

@@ -39,3 +39,12 @@ def sample_vcard_data():
         "given": "Jon",
         "tel": "+254700000000"
     }
+
+
+@pytest.fixture(scope="function")
+def sample_kyc_metadata():
+    return {
+        "identification_document": "PASSPORT",
+        "identification_number": "A78965245"
+    }
+
