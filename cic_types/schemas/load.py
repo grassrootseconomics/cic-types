@@ -7,7 +7,6 @@ import os
 
 # local imports
 
-logging.basicConfig(level=logging.DEBUG)
 logg = logging.getLogger()
 
 parent_dir = os.path.dirname(os.path.dirname(__file__))

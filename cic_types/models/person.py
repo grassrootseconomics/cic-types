@@ -106,6 +106,10 @@ class Person:
         return json.dumps(person_data)
 
 
+    def __str__(self):
+        return '{} {}'.format(self.given_name, self.family_name)
+
+
 def generate_metadata_pointer(identifier: bytes, cic_type: str):
     """This function generates a pointer to access data for a specific user's account in cic-meta. It hashes the
     identifier against a string representing a cic-type and creates an index value that can be used to look up account
