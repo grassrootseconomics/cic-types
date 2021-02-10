@@ -1,7 +1,6 @@
 # standard imports
 import base64
 import hashlib
-import json
 
 # third-party imports
 import vobject
@@ -16,9 +15,8 @@ vcard_json_schema = load_validation_schema(file_name='vcard.json')
 
 
 class Person:
-    """This class describes a person type python object that take json metadata for a user on the cic-platform.
-    It serializes data to json for interfacing with none-python systems and innately offers a python object that can be
-    used on systems running python code.
+    """This class describes a person type python object that takes json metadata for a user on the cic-platform.
+    It serializes data to a dict representation of the data.
     :cvar date_registered: A unix timestamp representing date a user was registered in the system.
     :type date_registered: int
     :cvar age: The age of the user owning an account.
@@ -85,11 +83,11 @@ class Person:
         self.tel = v_card_data.get("tel")
 
     def serialize(self):
-        """This function serializes a person type python object into a JSON formatted string.
-        :return: A JSON representation of data as stored in cic-meta.
-        :rtype: str
+        """This function serializes a person type python object into a python dict object.
+        :return: A dict representation of data as stored in cic-meta.
+        :rtype: dict
         """
-        person_data = {
+        return {
             "date_registered": self.date_registered,
             "age": self.age,
             "gender": self.gender,
@@ -103,25 +101,6 @@ class Person:
                 tel=self.tel
             )
         }
-        return json.dumps(person_data)
-
-
-def generate_metadata_pointer(identifier: bytes, cic_type: str):
-    """This function generates a pointer to access data for a specific user's account in cic-meta. It hashes the
-    identifier against a string representing a cic-type and creates an index value that can be used to look up account
-    metadata.
-    :param identifier: A unique identifier that can be used to look up an account's metadata e.g a blockchain address or
-    phone number.
-    :type identifier: bytes
-    :param cic_type: type descriptor for cic specific objects.
-    :type cic_type: str
-    :return: A sha256 hash of an identifier and cic-type.
-    :rtype: str
-    """
-    hash_object = hashlib.new("sha256")
-    hash_object.update(identifier)
-    hash_object.update(cic_type.encode(encoding="utf-8"))
-    return hash_object.digest().hex()
 
 
 # TODO: Figure out a clean way to handle entries in the vcard object with multiple values.
