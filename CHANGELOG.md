@@ -16,6 +16,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ### FIXED
 - Error in build part of version string.
+- Error in include definitions in setup.cfg file.
 
 ### CHANGED
 - Moved validation schemas into json files.
