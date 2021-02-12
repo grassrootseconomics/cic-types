@@ -7,6 +7,7 @@ import os
 
 # local imports
 
+logging.basicConfig()
 logg = logging.getLogger()
 
 parent_dir = os.path.dirname(os.path.dirname(__file__))
@@ -26,6 +27,4 @@ def load_validation_schema(file_name: str):
     logg.debug(f'Loading data from: {filepath}')
     data_file.close()
 
-
     return json_data
-

@@ -39,3 +39,5 @@ def sample_vcard_data():
         "given": "Jon",
         "tel": "+254700000000"
     }
+
+

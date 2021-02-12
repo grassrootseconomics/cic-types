@@ -1,7 +1,6 @@
 # standard imports
 import base64
 import hashlib
-import json
 
 # third-party imports
 import vobject
@@ -16,9 +15,8 @@ vcard_json_schema = load_validation_schema(file_name='vcard.json')
 
 
 class Person:
-    """This class describes a person type python object that take json metadata for a user on the cic-platform.
-    It serializes data to json for interfacing with none-python systems and innately offers a python object that can be
-    used on systems running python code.
+    """This class describes a person type python object that takes json metadata for a user on the cic-platform.
+    It serializes data to a dict representation of the data.
     :cvar date_registered: A unix timestamp representing date a user was registered in the system.
     :type date_registered: int
     :cvar age: The age of the user owning an account.
@@ -85,11 +83,11 @@ class Person:
         self.tel = v_card_data.get("tel")
 
     def serialize(self):
-        """This function serializes a person type python object into a JSON formatted string.
-        :return: A JSON representation of data as stored in cic-meta.
-        :rtype: str
+        """This function serializes a person type python object into a python dict object.
+        :return: A dict representation of data as stored in cic-meta.
+        :rtype: dict
         """
-        person_data = {
+        return {
             "date_registered": self.date_registered,
             "age": self.age,
             "gender": self.gender,
@@ -103,8 +101,6 @@ class Person:
                 tel=self.tel
             )
         }
-        return json.dumps(person_data)
-
 
     def __str__(self):
         return '{} {}'.format(self.given_name, self.family_name)
@@ -156,9 +152,9 @@ def get_contact_data_from_vcard(vcard: str):
     return contact_data
 
 
-def generate_vcard_from_contact_data(email: str, family_name: str, given_name: str, tel: str):
+def generate_vcard_from_contact_data(family_name: str, given_name: str, tel: str, email: str = None):
     """This function generates a base64 encoded representation of a vCard object containing a user's contact data.
-    :type email: str
+    :type email: str | None
     :param family_name: A user's surname formatted to read family as per vCard object conventions.
     :type family_name: str
     :param given_name: A user's given name.
@@ -171,10 +167,10 @@ def generate_vcard_from_contact_data(email: str, family_name: str, given_name: s
 
     # process phone number
     tel = phone_number_to_e164(phone_number=tel, region="KE")
-
     v_card = vobject.vCard()
-    v_card.add("email")
-    v_card.email.value = email
+    if email:
+        v_card.add("email")
+        v_card.email.value = email
     v_card.add("n")
     v_card.n.value = vobject.vcard.Name(given=given_name, family=family_name)
     v_card.add("fn")

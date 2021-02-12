@@ -2,7 +2,7 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-##[0.1.0] - 01-09-2021
+##[0.1.0] - 02-12-2021
 
 ### ADDED
 - Area names and types to location object in person object.
@@ -19,6 +19,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ### CHANGED
 - Moved validation schemas into json files.
-- Network names to placeholder 
+- Network names to placeholder.
+- Relaxed check for email in function to generate vcard.
 
 
