@@ -131,9 +131,9 @@ def get_contact_data_from_vcard(vcard: str):
     return contact_data
 
 
-def generate_vcard_from_contact_data(email: str, family_name: str, given_name: str, tel: str):
+def generate_vcard_from_contact_data(family_name: str, given_name: str, tel: str, email: str = None):
     """This function generates a base64 encoded representation of a vCard object containing a user's contact data.
-    :type email: str
+    :type email: str | None
     :param family_name: A user's surname formatted to read family as per vCard object conventions.
     :type family_name: str
     :param given_name: A user's given name.
@@ -146,10 +146,10 @@ def generate_vcard_from_contact_data(email: str, family_name: str, given_name: s
 
     # process phone number
     tel = phone_number_to_e164(phone_number=tel, region="KE")
-
     v_card = vobject.vCard()
-    v_card.add("email")
-    v_card.email.value = email
+    if email:
+        v_card.add("email")
+        v_card.email.value = email
     v_card.add("n")
     v_card.n.value = vobject.vcard.Name(given=given_name, family=family_name)
     v_card.add("fn")
