@@ -28,5 +28,3 @@ def load_validation_schema(file_name: str):
     data_file.close()
 
     return json_data
-
-

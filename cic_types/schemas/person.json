@@ -3,7 +3,7 @@
     "properties": {
         "date_registered": {
             "type": "number",
-            "pattern": "^([0-9]{10})$"
+            "pattern": "^([0-9]+)$"
         },
         "age": {"types":  "number"},
         "gender": {"type": "string"},
