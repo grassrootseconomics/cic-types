@@ -21,5 +21,6 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - Moved validation schemas into json files.
 - Network names to placeholder.
 - Relaxed check for email in function to generate vcard.
+- Lat/Lon in person validation schema to number type.
 
 
