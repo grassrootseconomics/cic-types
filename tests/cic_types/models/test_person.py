@@ -18,6 +18,7 @@ def test_person(sample_person_metadata):
     person = Person(person_data=sample_person_metadata)
 
     assert person.date_registered == sample_person_metadata.get("date_registered")
+    assert person.age == sample_person_metadata.get("age")
     assert person.gender == sample_person_metadata.get("gender")
     assert person.identities == sample_person_metadata.get("identities")
     assert person.location == sample_person_metadata.get("location")

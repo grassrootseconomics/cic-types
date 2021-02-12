@@ -7,15 +7,16 @@
         },
         "family": {
             "type": "string",
-            "pattern": "^([a-zA-Z]+)$"
+            "pattern": "^(.*)$"
         },
         "given": {
             "type": "string",
-            "pattern": "^([a-zA-Z]+)$"
+            "pattern": "^(.*)$"
         },
         "tel": {
             "type": "string",
-            "pattern": "^([+254]?[0-9]{12})$"
+            "pattern": "^(\\+?[0-9]+)$"
         }
-    }
+    },
+    "required": ["family", "given", "tel"]
 }

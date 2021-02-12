@@ -10,6 +10,7 @@ import pytest
 def sample_person_metadata():
     return {
         "date_registered": 1573505158,
+        "age": 25,
         "gender": "male",
         "identities": {
             "evm": {
@@ -20,6 +21,8 @@ def sample_person_metadata():
             }
         },
         "location": {
+            "area_name": "kayaba",
+            "area_type": "peri-urban",
             "latitude": "-13.7932245",
             "longitude": "159.183828",
         },

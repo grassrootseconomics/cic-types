@@ -10,7 +10,7 @@ import semver
 
 logg = logging.getLogger()
 
-version = (0, 1, 0, None)
+version = (0, 1, 0, 'alpha.1')
 
 version_object = semver.VersionInfo(
         major=version[0],
@@ -30,7 +30,7 @@ def git_hash():
 
 try:
     version_git = git_hash()
-    version_string += '.build.{}'.format(version_git)
+    version_string += '+build.{}'.format(version_git)
 except FileNotFoundError:
     time_string_pair = str(time.time()).split('.')
     version_string += '+build.{}{:<09d}'.format(
