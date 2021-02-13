@@ -25,11 +25,11 @@
                 "area_name": {"type": "string"},
                 "area_type": {"type": [ "string", "null" ]},
                 "latitude": {
-                    "type": [ "number", "null" ],
+                    "type": "number",
                     "pattern": "^(\\-?([0-8]?[0-9](\\.\\d+)?|90(.[0]+)?)\\s?)$"
                 },
                 "longitude": {
-                    "type": [ "number", "null" ],
+                    "type": "number",
                     "pattern": "^(\\-?([1]?[0-7]?[0-9](\\.\\d+)?|180((.[0]+)?)))$"
                 },
                 "external": {"type": "object"}
