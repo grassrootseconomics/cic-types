@@ -10,7 +10,7 @@ import pytest
 def sample_person_metadata():
     return {
         "date_registered": 1573505158,
-        "age": 25,
+        "year": 1974,
         "gender": "male",
         "identities": {
             "evm": {
