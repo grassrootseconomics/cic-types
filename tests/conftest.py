@@ -3,4 +3,4 @@
 # third-party imports
 
 # local imports
-from tests.fixtures.data import *
+from cic_types.pytest import *
