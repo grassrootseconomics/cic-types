@@ -39,16 +39,16 @@ class Person:
     :type tel: str
     :raises ValidationError: if any value contravenes set validation parameters in the described json schemas.
     """
-    date_registered: int = None
-    year: int = None
-    email: str = None
-    family_name: str = None
-    gender: str = None
-    given_name: str = None
-    identities: dict = None
-    location: dict = None
-    products: list = None
-    tel: str = None
+    date_registered: int
+    year: int
+    email: str
+    family_name: str
+    gender: str
+    given_name: str
+    identities: dict
+    location: dict
+    products: list
+    tel: str
 
     def __init__(self, person_data: dict):
         """
@@ -75,10 +75,14 @@ class Person:
         self.identities = person_data.get("identities")
         self.location = {
             "area_name": self.person_data.get("location").get("area_name"),
-            "area_type": self.person_data.get("location").get("area_type"),
-            "latitude": self.person_data.get("location").get("latitude"),
-            "longitude": self.person_data.get("location").get("longitude")
+            "area_type": self.person_data.get("location").get("area_type")
         }
+        if self.person_data.get("location").get("latitude"):
+            self.location["latitude"] = self.person_data.get("location").get("latitude")
+
+        if self.person_data.get("location").get("longitude"):
+            self.location["longitude"] = self.person_data.get("location").get("longitude")
+
         self.products = self.person_data.get("products")
         self.tel = v_card_data.get("tel")
 
@@ -87,9 +91,8 @@ class Person:
         :return: A dict representation of data as stored in cic-meta.
         :rtype: dict
         """
-        return {
+        serialized_metadata = {
             "date_registered": self.date_registered,
-            "year": self.year,
             "gender": self.gender,
             "identities": self.identities,
             "location": self.location,
@@ -101,6 +104,11 @@ class Person:
                 tel=self.tel
             )
         }
+
+        if self.year:
+            serialized_metadata["year"] = self.year
+
+        return serialized_metadata
 
     def __str__(self):
         return '{} {}'.format(self.given_name, self.family_name)
