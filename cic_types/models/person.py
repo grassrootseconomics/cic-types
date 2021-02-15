@@ -19,8 +19,8 @@ class Person:
     It serializes data to a dict representation of the data.
     :cvar date_registered: A unix timestamp representing date a user was registered in the system.
     :type date_registered: int
-    :cvar age: The age of the user owning an account.
-    :type age: int
+    :cvar year: The year of birth of the user owning an account.
+    :type year: int
     :cvar email: An email address associated with an user's account.
     :type email: str
     :cvar family_name: A user's surname formatted to read family as per vCard object conventions.
@@ -39,16 +39,16 @@ class Person:
     :type tel: str
     :raises ValidationError: if any value contravenes set validation parameters in the described json schemas.
     """
-    date_registered: int = None
-    age: int = None
-    email: str = None
-    family_name: str = None
-    gender: str = None
-    given_name: str = None
-    identities: dict = None
-    location: dict = None
-    products: list = None
-    tel: str = None
+    date_registered: int
+    year: int
+    email: str
+    family_name: str
+    gender: str
+    given_name: str
+    identities: dict
+    location: dict
+    products: list
+    tel: str
 
     def __init__(self, person_data: dict):
         """
@@ -67,7 +67,7 @@ class Person:
         # set values
         self.schema_version = 1
         self.date_registered = self.person_data.get("date_registered")
-        self.age = self.person_data.get("age")
+        self.year = self.person_data.get("year")
         self.email = v_card_data.get("email")
         self.family_name = v_card_data.get("family")
         self.gender = self.person_data.get("gender")
@@ -75,10 +75,14 @@ class Person:
         self.identities = person_data.get("identities")
         self.location = {
             "area_name": self.person_data.get("location").get("area_name"),
-            "area_type": self.person_data.get("location").get("area_type"),
-            "latitude": self.person_data.get("location").get("latitude"),
-            "longitude": self.person_data.get("location").get("longitude")
+            "area_type": self.person_data.get("location").get("area_type")
         }
+        if self.person_data.get("location").get("latitude"):
+            self.location["latitude"] = self.person_data.get("location").get("latitude")
+
+        if self.person_data.get("location").get("longitude"):
+            self.location["longitude"] = self.person_data.get("location").get("longitude")
+
         self.products = self.person_data.get("products")
         self.tel = v_card_data.get("tel")
 
@@ -87,9 +91,8 @@ class Person:
         :return: A dict representation of data as stored in cic-meta.
         :rtype: dict
         """
-        return {
+        serialized_metadata = {
             "date_registered": self.date_registered,
-            "age": self.age,
             "gender": self.gender,
             "identities": self.identities,
             "location": self.location,
@@ -101,6 +104,11 @@ class Person:
                 tel=self.tel
             )
         }
+
+        if self.year:
+            serialized_metadata["year"] = self.year
+
+        return serialized_metadata
 
     def __str__(self):
         return '{} {}'.format(self.given_name, self.family_name)

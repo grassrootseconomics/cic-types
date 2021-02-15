@@ -16,8 +16,8 @@ def test_process_phone_number(expected_result, phone_number, region):
     assert processed_phone_number == expected_result
 
 
-def test_generate_metadata_pointer(sample_person_metadata):
-    blockchain_address = sample_person_metadata.get("identities").get("evm").get("Bloxberg:8995")[0]
+def test_generate_metadata_pointer(person_metadata):
+    blockchain_address = person_metadata.get("identities").get("evm").get("Bloxberg:8995")[0]
     identifier = bytes.fromhex(blockchain_address[2:])
     metadata_pointer = generate_metadata_pointer(identifier=identifier, cic_type='cic.type')
     assert len(metadata_pointer) == 64

@@ -7,10 +7,10 @@ import pytest
 
 
 @pytest.fixture(scope="function")
-def sample_person_metadata():
+def person_metadata():
     return {
         "date_registered": 1573505158,
-        "age": 25,
+        "year": 1974,
         "gender": "male",
         "identities": {
             "evm": {
@@ -32,7 +32,7 @@ def sample_person_metadata():
 
 
 @pytest.fixture(scope="function")
-def sample_vcard_data():
+def vcard_data():
     return {
         "email": "jonsnow@thenorth.com",
         "family": "Snow",
