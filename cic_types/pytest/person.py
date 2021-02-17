@@ -12,7 +12,7 @@ def person_metadata():
         "date_registered": 1573505158,
         "date_of_birth": {
             "day": 13,
-            "month": 0o6,
+            "month": 6,
             "year": 1974
         },
         "gender": "male",

@@ -10,11 +10,11 @@
             "properties": {
                 "day": {
                     "type": "number",
-                    "pattern": "^(\\d{2})$"
+                    "pattern": "^(\\d{1,2})$"
                 },
                 "month": {
                     "type": "number",
-                    "pattern": "^(\\d{2})$"
+                    "pattern": "^(\\d{1,2})$"
                 },
                 "year": {
                     "type": "number",
