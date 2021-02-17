@@ -5,9 +5,22 @@
             "type": "number",
             "pattern": "^([0-9]+)$"
         },
-        "year": {
-            "types":  "number",
-            "pattern": "^(\\d{4})$"
+        "date_of_birth": {
+            "types":  "object",
+            "properties": {
+                "day": {
+                    "type": "number",
+                    "pattern": "^(\\d{1,2})$"
+                },
+                "month": {
+                    "type": "number",
+                    "pattern": "^(\\d{1,2})$"
+                },
+                "year": {
+                    "type": "number",
+                    "pattern": "^(\\d{4})$"
+                }
+            }
         },
         "gender": {"type": "string"},
         "identities": {
@@ -51,5 +64,5 @@
             "contentMediaType": "text/html"
         }
     },
-    "required": ["date_registered", "gender", "year", "identities", "location", "products", "vcard"]
+    "required": ["date_registered", "gender", "identities", "location", "products", "vcard"]
 }

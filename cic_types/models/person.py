@@ -40,7 +40,7 @@ class Person:
     :raises ValidationError: if any value contravenes set validation parameters in the described json schemas.
     """
     date_registered: int
-    year: int
+    date_of_birth: int
     email: str
     family_name: str
     gender: str
@@ -67,7 +67,7 @@ class Person:
         # set values
         self.schema_version = 1
         self.date_registered = self.person_data.get("date_registered")
-        self.year = self.person_data.get("year")
+        self.date_of_birth = self.person_data.get("date_of_birth")
         self.email = v_card_data.get("email")
         self.family_name = v_card_data.get("family")
         self.gender = self.person_data.get("gender")
@@ -105,8 +105,8 @@ class Person:
             )
         }
 
-        if self.year:
-            serialized_metadata["year"] = self.year
+        if self.date_of_birth:
+            serialized_metadata["date_of_birth"] = self.date_of_birth
 
         return serialized_metadata
 

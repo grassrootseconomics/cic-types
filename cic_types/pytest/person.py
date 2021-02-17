@@ -10,7 +10,11 @@ import pytest
 def person_metadata():
     return {
         "date_registered": 1573505158,
-        "year": 1974,
+        "date_of_birth": {
+            "day": 13,
+            "month": 6,
+            "year": 1974
+        },
         "gender": "male",
         "identities": {
             "evm": {

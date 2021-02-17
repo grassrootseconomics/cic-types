@@ -23,5 +23,6 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - Network names to placeholder.
 - Relaxed check for email in function to generate vcard.
 - Lat/Lon in person validation schema to number type.
+- Year attribute in person type schema to date of birth.
 
 

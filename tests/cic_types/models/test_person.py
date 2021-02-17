@@ -17,7 +17,7 @@ def test_person(person_metadata):
     person = Person(person_data=person_metadata)
 
     assert person.date_registered == person_metadata.get("date_registered")
-    assert person.year == person_metadata.get("year")
+    assert person.date_of_birth == person_metadata.get("date_of_birth")
     assert person.gender == person_metadata.get("gender")
     assert person.identities == person_metadata.get("identities")
     assert person.location == person_metadata.get("location")
