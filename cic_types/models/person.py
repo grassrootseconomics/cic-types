@@ -74,9 +74,11 @@ class Person:
         self.given_name = v_card_data.get('given')
         self.identities = person_data.get("identities")
         self.location = {
-            "area_name": self.person_data.get("location").get("area_name"),
-            "area_type": self.person_data.get("location").get("area_type")
+            "area_name": self.person_data.get("location").get("area_name")
         }
+        if self.person_data.get("location").get("area_type"):
+            self.location["area_type"] = self.person_data.get("location").get("area_type")
+
         if self.person_data.get("location").get("latitude"):
             self.location["latitude"] = self.person_data.get("location").get("latitude")
 
