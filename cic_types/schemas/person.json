@@ -51,5 +51,5 @@
             "contentMediaType": "text/html"
         }
     },
-    "required": ["date_registered", "gender", "year", "identities", "location", "products", "vcard"]
+    "required": ["date_registered", "gender", "identities", "location", "products", "vcard"]
 }
