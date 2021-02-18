@@ -49,8 +49,7 @@
                     "pattern": "^(\\-?([1]?[0-7]?[0-9](\\.\\d+)?|180((.[0]+)?)))$"
                 },
                 "external": {"type": "object"}
-            },
-            "required": ["area_name"]
+            }
         },
         "products": {
             "type": "array",
