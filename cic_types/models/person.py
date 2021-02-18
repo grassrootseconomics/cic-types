@@ -4,6 +4,8 @@ import hashlib
 
 # third-party imports
 import vobject
+from chainlib.chain import ChainSpec
+from chainlib.eth.address import to_checksum
 
 # local imports
 from cic_types.processor import phone_number_to_e164
@@ -39,54 +41,71 @@ class Person:
     :type tel: str
     :raises ValidationError: if any value contravenes set validation parameters in the described json schemas.
     """
-    date_registered: int
-    date_of_birth: int
-    email: str
-    family_name: str
-    gender: str
-    given_name: str
-    identities: dict
-    location: dict
-    products: list
-    tel: str
 
-    def __init__(self, person_data: dict):
+    def __init__(self):
         """
         :param person_data: A dictionary object containing all metadata for the person type.
         :type person_data: dict
         """
-        self.person_data = person_data
+        self.date_registered = None
+        self.user = None
+        self.email = None
+        self.family_name = None
+        self.gender = None
+        self.given_name = None
+        self.identities = {}
+        self.location = {}
+        self.products = []
+        self.tel = None
+        self.date_of_birth = {}
+
+
+    @staticmethod
+    def deserialize(person_data: dict):
+
+        p = Person()
+
+        # TOOD: Phil, by keeping person_data in the object, you're basically doubling the memory spent to represent this object....
+        p.person_data = person_data
 
         # attempt to validate general data format for person type
         validate_data(instance=person_data, schema=person_json_schema)
 
         # perform custom validations for v-object
-        v_card_data = get_contact_data_from_vcard(vcard=self.person_data.get("vcard"))
+        v_card_data = get_contact_data_from_vcard(vcard=p.person_data.get("vcard"))
         validate_data(instance=v_card_data, schema=vcard_json_schema)
 
         # set values
-        self.schema_version = 1
-        self.date_registered = self.person_data.get("date_registered")
-        self.date_of_birth = self.person_data.get("date_of_birth")
+        p.schema_version = 1
+        p.load_vcard(v_card_data)
+        p.date_registered = p.person_data.get("date_registered")
+        p.year = p.person_data.get("year")
+        p.gender = p.person_data.get("gender")
+        p.date_of_birth = p.person_data.get("date_of_birth")
+        p.identities = p.person_data.get("identities")
+
+        p.location = {}
+        area_type = p.person_data.get("location").get("area_type")
+        if area_type != None:
+            p.location["area_type"] = area_type
+        area_name = p.person_data.get("location").get("area_name")
+        if area_name != None:
+            p.location["area_name"] = area_name
+        if p.person_data.get("location").get("latitude") and p.person_data.get("location").get("longitude"):
+            p.location["latitude"] = p.person_data.get("location").get("latitude")
+            p.location["longitude"] = p.person_data.get("location").get("longitude")
+
+        p.products = p.person_data.get("products")
+
+        return p
+
+
+    def load_vcard(self, v_card_data):
         self.email = v_card_data.get("email")
         self.family_name = v_card_data.get("family")
-        self.gender = self.person_data.get("gender")
         self.given_name = v_card_data.get('given')
-        self.identities = person_data.get("identities")
-        self.location = {
-            "area_name": self.person_data.get("location").get("area_name")
-        }
-        if self.person_data.get("location").get("area_type"):
-            self.location["area_type"] = self.person_data.get("location").get("area_type")
-
-        if self.person_data.get("location").get("latitude"):
-            self.location["latitude"] = self.person_data.get("location").get("latitude")
-
-        if self.person_data.get("location").get("longitude"):
-            self.location["longitude"] = self.person_data.get("location").get("longitude")
-
-        self.products = self.person_data.get("products")
         self.tel = v_card_data.get("tel")
+
 
     def serialize(self):
         """This function serializes a person type python object into a python dict object.
@@ -111,6 +130,12 @@ class Person:
             serialized_metadata["date_of_birth"] = self.date_of_birth
 
         return serialized_metadata
+
+
+    def add_identity(self, address: str, chain_spec: ChainSpec):
+        checksum_address = to_checksum(address)
+        manage_identity_data(checksum_address, '{}.{}'.format(chain_spec.common_name(), chain_spec.network_id()), chain_spec.engine(), self.identities)
+
 
     def __str__(self):
         return '{} {}'.format(self.given_name, self.family_name)

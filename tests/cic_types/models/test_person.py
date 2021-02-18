@@ -1,7 +1,10 @@
 # standard imports
+import os
 import json
 
 # third-party imports
+from chainlib.chain import ChainSpec
+from chainlib.eth.address import to_checksum
 
 # local imports
 from cic_types.models.person import (
@@ -14,7 +17,7 @@ from cic_types.models.person import (
 
 def test_person(person_metadata):
     # check that all validation pass
-    person = Person(person_data=person_metadata)
+    person = Person.deserialize(person_data=person_metadata)
 
     assert person.date_registered == person_metadata.get("date_registered")
     assert person.date_of_birth == person_metadata.get("date_of_birth")
@@ -78,3 +81,13 @@ def test_manage_identity_data(person_metadata):
     )
     assert len(alternative_identity_data.get(blockchain_type).get(chain_spec)) == 1
 
+
+def test_chain_spec_set(person_metadata):
+
+    p = Person.deserialize(person_metadata)
+   
+    chain_spec = ChainSpec('foo', 'bar', 42)
+    addr = '0x' + os.urandom(20).hex()
+    p.add_identity(addr, chain_spec)
+
+    assert p.identities['foo']['bar.42'][0] == to_checksum(addr)
