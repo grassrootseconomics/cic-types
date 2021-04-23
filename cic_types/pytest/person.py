@@ -30,7 +30,15 @@ def person_metadata():
             "latitude": -13.7932245,
             "longitude": 159.183828,
         },
-        "products": ["education", "transport"],
+        "products": [
+            {
+                "category": "Useful stuff",
+                "tags": [
+                    "education",
+                    "transport",
+                ],
+            },
+        ],
         "vcard": "QkVHSU46VkNBUkQNClZFUlNJT046My4wDQpFTUFJTDpqb25zbm93QHRoZW5vcnRoLmNvbQ0KRk46Sm9uXCwgU25vdw0KTjpTbm93O0pvbjs7Ow0KVEVMO1RZUD1DRUxMOisyNTQ3MDAwMDAwMDANCkVORDpWQ0FSRA0K"
     }
 
