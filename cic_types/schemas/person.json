@@ -40,6 +40,12 @@
                 "type": "string"
             }
         },
+	"tags": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            }
+        },
         "vcard": {
             "type": "string",
             "contentEncoding": "base64",
