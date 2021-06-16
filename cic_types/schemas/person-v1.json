@@ -1,0 +1,81 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://schema.grassrootseconomics.net:8433/person-v1.json",
+  "type": "object",
+  "properties": {
+    "date_registered": {
+      "type": "number",
+      "minimum": 0
+    },
+    "date_of_birth": {
+      "type": "object",
+      "properties": {
+        "day": { "type": "number", "minimum": 1, "maximum": 31 },
+        "month": { "type": "number", "minimum": 1, "maximum": 12 },
+        "year": { "type": "number", "minimum": 1900 }
+      },
+      "required": ["year"]
+    },
+    "gender": { "type": "string" },
+    "identities": {
+      "type": "object",
+      "properties": {
+        "evm": {
+          "type": "object",
+          "properties": {
+            "bloxberg:8996": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "oldchain:1": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "required": ["bloxberg:8996"]
+        }
+      }
+    },
+    "location": {
+      "type": "object",
+      "properties": {
+        "area_name": { "type": "string" },
+        "area_type": { "type": "string" },
+        "latitude": {
+          "type": "number",
+          "minimum": -90,
+          "maximum": 90
+        },
+        "longitude": {
+          "type": "number",
+          "minimum": -180,
+          "maximum": 180
+        },
+        "external": { "type": "object" }
+      }
+    },
+    "products": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "vcard": {
+      "type": "string",
+      "contentEncoding": "base64",
+      "contentMediaType": "text/html"
+    }
+  },
+  "required": [
+    "date_registered",
+    "gender",
+    "identities",
+    "location",
+    "products",
+    "vcard"
+  ]
+}
