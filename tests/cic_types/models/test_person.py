@@ -61,7 +61,7 @@ def test_generate_vcard_from_contact_data(person_metadata, vcard_data):
 
 def test_manage_identity_data(person_metadata):
     blockchain_address = "0x16ba1a17650c4001e2fa28c6f883jdhud458df654d"
-    chain_spec = "Bloxberg:8995"
+    chain_spec = "bloxberg:8996"
     blockchain_type = "evm"
     identities = person_metadata.get("identities")
 

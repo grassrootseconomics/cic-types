@@ -18,7 +18,7 @@ def person_metadata():
         "gender": "male",
         "identities": {
             "evm": {
-                "Bloxberg:8995": [
+                "bloxberg:8996": [
                     "0x16ba1a17650c4001e2fa28c6f883aabe8f90d5b7",
                     "0xE978b4A817e95Ca7F04370B83d631b8fea8E40D5"
                 ]
