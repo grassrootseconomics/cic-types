@@ -12,8 +12,8 @@ from cic_types.processor import phone_number_to_e164
 from cic_types.schemas.load import load_validation_schema
 from cic_types.validator import validate_data
 
-person_json_schema = load_validation_schema(file_name='person.json')
-vcard_json_schema = load_validation_schema(file_name='vcard.json')
+person_json_schema = load_validation_schema(file_name='person-v1.json')
+vcard_json_schema = load_validation_schema(file_name='vcard-v1.json')
 
 
 class Person:
