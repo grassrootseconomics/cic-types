@@ -2,4 +2,4 @@ jsonschema==3.2.0
 phonenumbers==8.12.12
 semver==2.13.0
 vobject==0.9.6.1
-chainlib-eth~=0.0.5a1
+chainlib-eth~=0.0.9a13
