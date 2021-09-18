@@ -61,25 +61,25 @@ def test_generate_vcard_from_contact_data(person_metadata, vcard_data):
 
 def test_manage_identity_data(person_metadata):
     blockchain_address = "0x16ba1a17650c4001e2fa28c6f883jdhud458df654d"
-    chain_spec = "bloxberg:8996"
-    blockchain_type = "evm"
+    chain_str = "evm:bloxberg:8996"
+    engine = chain_str.partition(':')[0]
+    chain_name_id = chain_str.partition(':')[-1]
     identities = person_metadata.get("identities")
 
     identity_data = manage_identity_data(
         blockchain_address=blockchain_address,
-        chain_spec=chain_spec,
-        blockchain_type=blockchain_type,
+        chain_str=chain_str,
         identity_data=identities
     )
-    assert len(identity_data.get(blockchain_type).get(chain_spec)) == 3
+
+    assert len(identity_data.get(engine).get(chain_name_id)) == 3
     alternative_identity_data = {}
     assert bool(alternative_identity_data) is False
     alternative_identity_data = manage_identity_data(
         blockchain_address=blockchain_address,
-        chain_spec=chain_spec,
-        blockchain_type=blockchain_type
+        chain_str=chain_str,
     )
-    assert len(alternative_identity_data.get(blockchain_type).get(chain_spec)) == 1
+    assert len(alternative_identity_data.get(engine).get(chain_name_id)) == 1
 
 
 def test_chain_spec_set(person_metadata):
@@ -89,5 +89,4 @@ def test_chain_spec_set(person_metadata):
     chain_spec = ChainSpec('foo', 'bar', 42)
     addr = '0x' + os.urandom(20).hex()
     p.add_identity(addr, chain_spec)
-
-    assert p.identities['foo']['bar.42'][0] == to_checksum(addr)
+    assert p.identities['foo']['bar:42'][0] == to_checksum(addr)

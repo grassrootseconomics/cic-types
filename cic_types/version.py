@@ -10,7 +10,7 @@ import semver
 
 logg = logging.getLogger()
 
-version = (0, 1, 0, 'alpha.13')
+version = (0, 1, 0, 'alpha.15')
 
 version_object = semver.VersionInfo(
     major=version[0],

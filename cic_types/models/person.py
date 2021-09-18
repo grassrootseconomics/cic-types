@@ -131,11 +131,11 @@ class Person:
 
         return serialized_metadata
 
-
     def add_identity(self, address: str, chain_spec: ChainSpec):
         checksum_address = to_checksum(address)
-        manage_identity_data(checksum_address, '{}.{}'.format(chain_spec.common_name(), chain_spec.network_id()), chain_spec.engine(), self.identities)
-
+        manage_identity_data(blockchain_address=checksum_address,
+                             chain_str=chain_spec.__str__(),
+                             identity_data=self.identities)
 
     def __str__(self):
         return '{} {}'.format(self.given_name, self.family_name)
@@ -219,34 +219,33 @@ def generate_vcard_from_contact_data(family_name: str, given_name: str, tel: str
     return v_card_base64.decode(encoding="utf-8")
 
 
-def manage_identity_data(blockchain_address: str, chain_spec: str, blockchain_type: str, identity_data: dict = None):
+def manage_identity_data(blockchain_address: str, chain_str: str, identity_data: dict = None):
     """This function implements a management strategy for the identities held in metadata for an account, it creates
     a dictionary object that stores the network and child network id against a list of addresses associated with an
     account.
     :param blockchain_address: An address on a wallet.
     :type blockchain_address: str
-    :param chain_spec: The chain name and network id.
-    :type chain_spec: str
-    :param blockchain_type: The blockchain network on which the account exists.
-    :type blockchain_type: str
+    :param chain_str: The chain name and network id.
+    :type chain_str: str
     :param identity_data: A dictionary object containing data on the identities.
     :type identity_data: dict
     :return: A new or edited version of the identity data dictionary object.
     :rtype: dict
     """
     addresses = []
+    engine = chain_str.partition(':')[0]
+    chain_name_id = chain_str.partition(':')[-1]
     if not identity_data:
         identity_data = {
-            blockchain_type: {
-                chain_spec: addresses + [blockchain_address]
+            engine: {
+                chain_name_id: addresses + [blockchain_address]
             }
         }
-        return identity_data
     else:
-        if identity_data.get(blockchain_type):
-            addresses = identity_data.get(blockchain_type).get(chain_spec) or []
+        if identity_data.get(engine):
+            addresses = identity_data.get(engine).get(chain_name_id) or []
 
-        identity_data[blockchain_type] = {
-            chain_spec: addresses + [blockchain_address]
+        identity_data[engine] = {
+            chain_name_id: addresses + [blockchain_address]
         }
-        return identity_data
+    return identity_data
