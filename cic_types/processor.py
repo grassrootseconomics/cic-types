@@ -1,10 +1,11 @@
 # standard imports
 import hashlib
 
-# third-party imports
+# external imports
 import phonenumbers
 
 # local imports
+from cic_types.condiments import MetadataPointer
 
 
 def phone_number_to_e164(phone_number: str, region: str):
@@ -29,7 +30,7 @@ def phone_number_to_e164(phone_number: str, region: str):
     return processed_phone_number
 
 
-def generate_metadata_pointer(identifier: bytes, cic_type: str):
+def generate_metadata_pointer(identifier: bytes, cic_type: MetadataPointer):
     """This function generates a pointer to access data for a specific user's account in cic-meta. It hashes the
     identifier against a string representing a cic-type and creates an index value that can be used to look up account
     metadata.
@@ -43,5 +44,5 @@ def generate_metadata_pointer(identifier: bytes, cic_type: str):
     """
     hash_object = hashlib.new("sha256")
     hash_object.update(identifier)
-    hash_object.update(cic_type.encode(encoding="utf-8"))
+    hash_object.update(cic_type.value.encode(encoding="utf-8"))
     return hash_object.digest().hex()
