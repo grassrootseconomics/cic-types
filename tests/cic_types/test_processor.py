@@ -5,6 +5,7 @@ import pytest
 
 # local imports
 from cic_types.processor import phone_number_to_e164, generate_metadata_pointer
+from cic_types.condiments import MetadataPointer
 
 
 @pytest.mark.parametrize("phone_number, region, expected_result", [
@@ -19,5 +20,5 @@ def test_process_phone_number(expected_result, phone_number, region):
 def test_generate_metadata_pointer(person_metadata):
     blockchain_address = person_metadata.get("identities").get("evm").get("bloxberg:8996")[0]
     identifier = bytes.fromhex(blockchain_address[2:])
-    metadata_pointer = generate_metadata_pointer(identifier=identifier, cic_type='cic.type')
+    metadata_pointer = generate_metadata_pointer(identifier=identifier, cic_type=MetadataPointer.PERSON)
     assert len(metadata_pointer) == 64

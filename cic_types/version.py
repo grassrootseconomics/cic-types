@@ -10,7 +10,7 @@ import semver
 
 logg = logging.getLogger()
 
-version = (0, 2, 0, 'alpha.1')
+version = (0, 2, 0, 'alpha.2')
 
 version_object = semver.VersionInfo(
     major=version[0],
@@ -25,8 +25,7 @@ version_string = str(version_object)
 def git_hash():
     git_hash = subprocess.run(
         ['git', 'rev-parse', 'HEAD'], capture_output=True)
-    git_hash_brief = git_hash.stdout.decode('utf-8')[:8]
-    return git_hash_brief
+    return git_hash.stdout.decode('utf-8')[:8]
 
 
 try:
