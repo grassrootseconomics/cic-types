@@ -20,23 +20,3 @@ version_object = semver.VersionInfo(
 )
 
 version_string = str(version_object)
-
-
-def git_hash():
-    git_hash = subprocess.run(
-        ['git', 'rev-parse', 'HEAD'], capture_output=True)
-    return git_hash.stdout.decode('utf-8')[:8]
-
-
-try:
-    version_git = git_hash()
-    version_string += '+build.{}'.format(version_git)
-except FileNotFoundError:
-    time_string_pair = str(time.time()).split('.')
-    version_string += '+build.{}{:<09d}'.format(
-        time_string_pair[0],
-        int(time_string_pair[1]),
-    )
-logg.info(f'Final version string will be {version_string}')
-
-__version_string__ = version_string
