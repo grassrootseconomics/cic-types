@@ -18,10 +18,12 @@ def person_metadata():
         "gender": "male",
         "identities": {
             "evm": {
-                "bloxberg:8996": [
-                    "16ba1a17650c4001e2fa28c6f883aabe8f90d5b7",
-                    "e978b4a817e95ca7f04370b83d631b8fea8e40d5"
-                ]
+                "byzantium": {
+                    "8996:bloxberg": [
+                        "16ba1a17650c4001e2fa28c6f883aabe8f90d5b7",
+                        "e978b4a817e95ca7f04370b83d631b8fea8e40d5"
+                        ]
+                }
             }
         },
         "location": {

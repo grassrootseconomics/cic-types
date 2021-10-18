@@ -5,7 +5,7 @@ import hashlib
 # third-party imports
 import vobject
 from chainlib.chain import ChainSpec
-from chainlib.eth.address import to_checksum
+from chainlib.eth.address import uniform, strip_0x
 
 # local imports
 from cic_types.processor import phone_number_to_e164
@@ -132,8 +132,8 @@ class Person:
         return serialized_metadata
 
     def add_identity(self, address: str, chain_spec: ChainSpec):
-        checksum_address = to_checksum(address)
-        manage_identity_data(blockchain_address=checksum_address,
+        address = uniform(strip_0x(address))
+        manage_identity_data(blockchain_address=address,
                              chain_str=chain_spec.__str__(),
                              identity_data=self.identities)
 
@@ -233,19 +233,29 @@ def manage_identity_data(blockchain_address: str, chain_str: str, identity_data:
     :rtype: dict
     """
     addresses = []
-    engine = chain_str.partition(':')[0]
-    chain_name_id = chain_str.partition(':')[-1]
+    chain_spec = ChainSpec.from_chain_str(chain_str).asdict()
+    arch = chain_spec.get('arch')
+    fork = chain_spec.get('fork')
+    common_name = chain_spec.get("common_name")
+    network_id = chain_spec.get("network_id")
+    identities = f'{network_id}:{common_name}' if common_name else f'{network_id}'
+
     if not identity_data:
         identity_data = {
-            engine: {
-                chain_name_id: addresses + [blockchain_address]
+            arch: {
+                fork: {
+                    identities: addresses + [blockchain_address]
+                }
             }
         }
     else:
-        if identity_data.get(engine):
-            addresses = identity_data.get(engine).get(chain_name_id) or []
+        if identity_data.get(arch):
+            addresses = identity_data[arch][fork][identities]
 
-        identity_data[engine] = {
-            chain_name_id: addresses + [blockchain_address]
+        identity_data[arch] = {
+            fork: {
+                identities: addresses + [blockchain_address]
+            }
         }
+
     return identity_data
