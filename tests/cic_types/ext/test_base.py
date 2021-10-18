@@ -17,7 +17,7 @@ def test_metadata_requests_handler(load_config,
                                    person_metadata,
                                    setup_metadata_request_handler,
                                    setup_metadata_signer):
-    identifier = bytes.fromhex(person_metadata['identities']['evm']['bloxberg:8996'][0])
+    identifier = bytes.fromhex(person_metadata['identities']['evm']['byzantium']['8996:bloxberg'][0])
     cic_type = MetadataPointer.PERSON
     metadata_client = MetadataRequestsHandler(cic_type, identifier)
     assert metadata_client.cic_type == cic_type

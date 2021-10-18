@@ -60,10 +60,12 @@ def test_generate_vcard_from_contact_data(person_metadata, vcard_data):
 
 
 def test_manage_identity_data(person_metadata):
-    blockchain_address = "0x16ba1a17650c4001e2fa28c6f883jdhud458df654d"
-    chain_str = "evm:bloxberg:8996"
-    engine = chain_str.partition(':')[0]
-    chain_name_id = chain_str.partition(':')[-1]
+    blockchain_address = "16ba1a17650c4001e2fa28c6f883jdhud458df654d"
+    chain_str = "evm:byzantium:8996:bloxberg"
+    chain_spec = ChainSpec.from_chain_str(chain_str).asdict()
+    arch = chain_spec.get('arch')
+    fork = chain_spec.get('fork')
+    network_id_common_name = f'{chain_spec.get("network_id")}:{chain_spec.get("common_name")}'
     identities = person_metadata.get("identities")
 
     identity_data = manage_identity_data(
@@ -72,21 +74,19 @@ def test_manage_identity_data(person_metadata):
         identity_data=identities
     )
 
-    assert len(identity_data.get(engine).get(chain_name_id)) == 3
+    assert len(identity_data.get(arch).get(fork).get(network_id_common_name)) == 3
     alternative_identity_data = {}
     assert bool(alternative_identity_data) is False
     alternative_identity_data = manage_identity_data(
         blockchain_address=blockchain_address,
         chain_str=chain_str,
     )
-    assert len(alternative_identity_data.get(engine).get(chain_name_id)) == 1
+    assert len(alternative_identity_data.get(arch).get(fork).get(network_id_common_name)) == 1
 
 
 def test_chain_spec_set(person_metadata):
-
     p = Person.deserialize(person_metadata)
-   
     chain_spec = ChainSpec('foo', 'bar', 42)
-    addr = '0x' + os.urandom(20).hex()
-    p.add_identity(addr, chain_spec)
-    assert p.identities['foo']['bar:42'][0] == to_checksum(addr)
+    address = os.urandom(20).hex()
+    p.add_identity(address, chain_spec)
+    assert p.identities['foo']['bar']['42'][0] == address
