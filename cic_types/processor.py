@@ -25,9 +25,9 @@ def phone_number_to_e164(phone_number: str, region: str):
             pass
 
     phone_number_object = phonenumbers.parse(phone_number, region)
-    processed_phone_number = phonenumbers.format_number(phone_number_object, phonenumbers.PhoneNumberFormat.E164)
-
-    return processed_phone_number
+    return phonenumbers.format_number(
+        phone_number_object, phonenumbers.PhoneNumberFormat.E164
+    )
 
 
 def generate_metadata_pointer(identifier: bytes, cic_type: MetadataPointer):

@@ -10,7 +10,7 @@ from typing import Dict, Union
 from .signer import Signer
 from cic_types.condiments import MetadataPointer
 from cic_types.ext.requests import error_handler, make_request
-from cic_types.models.person import generate_metadata_pointer
+from cic_types.processor import generate_metadata_pointer
 
 logg = logging.getLogger(__file__)
 
@@ -37,7 +37,7 @@ class MetadataRequestsHandler(Metadata):
         self.identifier = identifier
         self.metadata_pointer = generate_metadata_pointer(
             identifier=self.identifier,
-            cic_type=self.cic_type.value
+            cic_type=self.cic_type
         )
         if self.base_url:
             self.url = os.path.join(self.base_url, self.metadata_pointer)

@@ -141,24 +141,6 @@ class Person:
         return '{} {}'.format(self.given_name, self.family_name)
 
 
-def generate_metadata_pointer(identifier: bytes, cic_type: str):
-    """This function generates a pointer to access data for a specific user's account in cic-meta. It hashes the
-    identifier against a string representing a cic-type and creates an index value that can be used to look up account
-    metadata.
-    :param identifier: A unique identifier that can be used to look up an account's metadata e.g a blockchain address or
-    phone number.
-    :type identifier: bytes
-    :param cic_type: type descriptor for cic specific objects.
-    :type cic_type: str
-    :return: A sha256 hash of an identifier and cic-type.
-    :rtype: str
-    """
-    hash_object = hashlib.new("sha256")
-    hash_object.update(identifier)
-    hash_object.update(cic_type.encode(encoding="utf-8"))
-    return hash_object.digest().hex()
-
-
 # TODO: Figure out a clean way to handle entries in the vcard object with multiple values.
 def get_contact_data_from_vcard(vcard: str):
     """This function parses a vcard object and builds a python dictionary containing the vcard's constituent information.
@@ -217,6 +199,19 @@ def generate_vcard_from_contact_data(family_name: str, given_name: str, tel: str
     v_card_serialized = v_card.serialize()
     v_card_base64 = base64.b64encode(v_card_serialized.encode(encoding="utf-8"))
     return v_card_base64.decode(encoding="utf-8")
+
+
+def identity_tag(chain_spec_dict: dict) -> str:
+    """ This function parses the chain spec dict and checks for the presence of the optional common name and returns the
+    appropriate identity tag.
+    :param chain_spec_dict: A dictionary representation of the chain spec object.
+    :type chain_spec_dict: dict
+    :return: Colon separated string of the format network_id | network_id:common_name as per common name presence.
+    :rtype: str
+    """
+    network_id = chain_spec_dict.get('network_id')
+    common_name = chain_spec_dict.get('common_name')
+    return f'{network_id}:{common_name}' if common_name else f'{network_id}'
 
 
 def manage_identity_data(blockchain_address: str, chain_str: str, identity_data: dict = None):
