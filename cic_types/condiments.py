@@ -3,6 +3,7 @@ import enum
 
 
 class MetadataPointer(enum.Enum):
+    NONE = None
     BALANCES = ':cic.balances'
     BALANCES_ADJUSTED = 'cic:balances.adjusted'
     CUSTOM = ':cic.custom'
@@ -12,5 +13,6 @@ class MetadataPointer(enum.Enum):
     STATEMENT = ':cic.statement'
     TOKEN_DEFAULT = ':cic.token.default'
     TOKEN_META = ':cic.token.meta'
+    TOKEN_META_SYMBOL = ':cic.token.meta.symbol'
     TOKEN_PROOF = ':cic.token.proof'
-
+    TOKEN_PROOF_SYMBOL = ':cic.token.proof.symbol'

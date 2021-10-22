@@ -35,10 +35,13 @@ class MetadataRequestsHandler(Metadata):
             'Content-Type': 'application/json'
         }
         self.identifier = identifier
-        self.metadata_pointer = generate_metadata_pointer(
-            identifier=self.identifier,
-            cic_type=self.cic_type
-        )
+        if cic_type == MetadataPointer.NONE:
+            self.metadata_pointer = identifier.hex()
+        else:
+            self.metadata_pointer = generate_metadata_pointer(
+                identifier=self.identifier,
+                cic_type=self.cic_type
+            )
         if self.base_url:
             self.url = os.path.join(self.base_url, self.metadata_pointer)
 
