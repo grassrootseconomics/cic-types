@@ -11,6 +11,7 @@ class MetadataPointer(enum.Enum):
     PHONE = ':cic.phone'
     PREFERENCES = ':cic.preferences'
     STATEMENT = ':cic.statement'
+    TOKEN_DATA = ':cic.token.data'
     TOKEN_DEFAULT = ':cic.token.default'
     TOKEN_META = ':cic.token.meta'
     TOKEN_META_SYMBOL = ':cic.token.meta.symbol'
