@@ -17,3 +17,4 @@ class MetadataPointer(enum.Enum):
     TOKEN_META_SYMBOL = ':cic.token.meta.symbol'
     TOKEN_PROOF = ':cic.token.proof'
     TOKEN_PROOF_SYMBOL = ':cic.token.proof.symbol'
+    TOKEN_SYMBOLS_LIST = ':cic.token.symbols.list'
