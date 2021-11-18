@@ -60,10 +60,10 @@ class Person:
         self.date_of_birth = {}
 
 
-    @staticmethod
-    def deserialize(person_data: dict):
+    @classmethod
+    def deserialize(cls, person_data: dict):
 
-        p = Person()
+        p = cls()
 
         # TOOD: Phil, by keeping person_data in the object, you're basically doubling the memory spent to represent this object....
         p.person_data = person_data

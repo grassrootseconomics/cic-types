@@ -76,7 +76,6 @@ class MetadataRequestsHandler(Metadata):
             decoded_identifier = self.identifier.decode("utf-8")
         except UnicodeDecodeError:
             decoded_identifier = self.identifier.hex()
-        logg.info(f'identifier: {decoded_identifier}. metadata pointer: {self.metadata_pointer} set to: {data}.')
         return result
 
     def query(self):
