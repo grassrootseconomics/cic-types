@@ -17,6 +17,7 @@ logg = logging.getLogger()
 
 hextypes = [
         MetadataPointer.PERSON,
+        MetadataPointer.CUSTOM,
         ]
 e164types = [
         MetadataPointer.PHONE,
