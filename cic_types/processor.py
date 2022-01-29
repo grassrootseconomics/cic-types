@@ -42,6 +42,9 @@ def generate_metadata_pointer(identifier: bytes, cic_type: MetadataPointer):
     :return: A sha256 hash of an identifier and cic-type.
     :rtype: str
     """
+    if type(identifier) is type(""):
+        identifier = identifier.encode(encoding="utf-8")
+    print(type(identifier))
     hash_object = hashlib.new("sha256")
     hash_object.update(identifier)
     hash_object.update(cic_type.value.encode(encoding="utf-8"))
