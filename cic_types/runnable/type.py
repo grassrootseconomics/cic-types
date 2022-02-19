@@ -18,7 +18,13 @@ logg = logging.getLogger()
 hextypes = [
         MetadataPointer.PERSON,
         MetadataPointer.CUSTOM,
+        MetadataPointer.TOKEN_META,
+        MetadataPointer.TOKEN_PROOF,
         ]
+#stringtypes = [
+#        MetadataPointer.TOKEN_META_SYMBOL,
+#        MetadataPointer.TOKEN_PROOF_SYMBOL,
+#        ]
 e164types = [
         MetadataPointer.PHONE,
         ]
@@ -51,15 +57,25 @@ except AttributeError:
     sys.exit(1)
 logg.info('pointer type {}'.format(p))
 
-v = args.value
-vd = v
-if p in hextypes:
-    v = bytes.fromhex(strip_0x(v))
-    vd = v.hex() + ' (bytes)'
-elif p in e164types:
-    v = phone_number_to_e164(v, None)
-    vd = v
-    v = v.encode('utf-8')
-logg.info('interpreted value ' + vd)
 
-print(generate_metadata_pointer(v, p))
+def main():
+
+    v = args.value
+    vd = v
+    if p in hextypes:
+        v = bytes.fromhex(strip_0x(v))
+        vd = v.hex() + ' (bytes)'
+    elif p in e164types:
+        v = phone_number_to_e164(v, None)
+        vd = v
+        v = v.encode('utf-8')
+    else:
+        logg.debug('assuming string value type')
+        v = v.encode('utf-8')
+    logg.info('interpreted value ' + vd)
+
+    print(generate_metadata_pointer(v, p))
+
+
+if __name__ == '__main__':
+    main()
