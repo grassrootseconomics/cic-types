@@ -54,5 +54,5 @@ class Signer:
         """
         digest = data['digest']
         key_id = self.get_operational_key().get('keyid')
-        signature = self.gpg.sign(digest, passphrase=self.gpg_passphrase, keyid=key_id, detach=True)
+        signature = self.gpg.sign(digest, passphrase=self.gpg_passphrase, keyid=key_id)
         return str(signature)
