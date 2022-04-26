@@ -24,10 +24,7 @@
           "type": "number",
           "minimum": 1900
         }
-      },
-      "required": [
-        "year"
-      ]
+      }
     },
     "gender": {
       "type": "string"
@@ -71,12 +68,5 @@
       "contentMediaType": "text/html"
     }
   },
-  "required": [
-    "date_registered",
-    "gender",
-    "identities",
-    "location",
-    "products",
-    "vcard"
-  ]
+  "required": ["date_registered", "identities", "vcard"]
 }
