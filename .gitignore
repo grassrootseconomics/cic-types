@@ -8,3 +8,5 @@ __pycache__
 gmon.out
 /.venv
 /.mypy_cache
+/.vscode
+/.pytest_cache
