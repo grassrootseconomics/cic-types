@@ -3,7 +3,7 @@ default:
   before_script:
     - apt-get update
     - apt-get install -y libpq-dev gcc gnupg git
-    - pip install -r requirements.txt --extra-index-url https://pip.grassrootseconomics.net:8433
+    - pip install -r requirements.txt --extra-index-url https://pip.grassrootseconomics.net
     - pip install -r test_requirements.txt
     - PYTHONPATH=. python setup.py install
 
