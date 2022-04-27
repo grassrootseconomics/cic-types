@@ -6,3 +6,4 @@
 from .config import *
 from .metadata import *
 from .person import *
+from .tx import *
