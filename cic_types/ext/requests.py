@@ -1,10 +1,10 @@
 # standard imports
 import logging
+from typing import Any
 
 # external imports
 import requests
 from requests.exceptions import HTTPError
-
 # local imports
 from cic_types.error import UnsupportedMethodError
 
@@ -28,7 +28,7 @@ def error_handler(result: requests.Response):
         raise HTTPError(f'Server Error: {status_code}, reason: {result.reason}')
 
 
-def make_request(method: str, url: str, data: any = None, headers: dict = None):
+def make_request(method: str, url: str, data: Any = None, headers: dict = None):
     """"""
     if method == 'GET':
         logg.debug(f'retrieving data from: {url}')
