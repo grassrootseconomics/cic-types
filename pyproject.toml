@@ -1,0 +1,35 @@
+[tool.poetry]
+name = "cic-types"
+version = "0.2.3"
+description = "Defines descriptors for data objects specific to the CIC-Network."
+authors = [
+    "Philip Wafula <phil@mangohabanero.dev>",
+    "Louis Holbrook <dev@holbrook.no>",
+    "William Luke <williamluke4@gmail.com>",
+]
+license = "LICENSE.md"
+
+[[tool.poetry.source]]
+name = "grassroots_economics"
+url = "https://pip.grassrootseconomics.net"
+secondary = true
+
+[tool.poetry.dependencies]
+python = "^3.9"
+python-gnupg = "^0.4.9"
+vobject = "^0.9.6"
+chainlib-eth = "^0.3.1"
+requests = "^2.28.0"
+jsonschema = "^4.6.0"
+phonenumbers = "^8.12.50"
+
+[tool.poetry.dev-dependencies]
+confini = "^0.6.1"
+pytest = "^7.1.2"
+pytest-cov = "^3.0.0"
+pytest-mock = "^3.7.0"
+requests-mock = "^1.9.3"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

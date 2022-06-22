@@ -1,12 +1,11 @@
 default:
-  image: python:3.8.5-slim-buster
+  image: python:3.9.5-slim-buster
   before_script:
     - apt-get update
     - apt-get install -y libpq-dev gcc gnupg git
-    - pip install -r requirements.txt --extra-index-url https://pip.grassrootseconomics.net
-    - pip install -r test_requirements.txt
-    - PYTHONPATH=. python setup.py install
+    - pip install poetry
+    - poetry install
 
 test-dev:
   script:
-    - pytest -vv -s --log-cli-level DEBUG --log-level DEBUG --cov=cic_types --cov-fail-under=90 tests
+    - poetry run pytest -vv -s --log-cli-level DEBUG --log-level DEBUG --cov=cic_types --cov-fail-under=90 tests

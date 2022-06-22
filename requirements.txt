@@ -1,7 +1,0 @@
-jsonschema==3.2.0
-phonenumbers==8.12.12
-semver==2.13.0
-vobject==0.9.6.1
-chainlib-eth~=0.3.0
-requests==2.26.0
-python-gnupg==0.4.7
