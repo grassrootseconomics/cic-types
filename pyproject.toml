@@ -6,8 +6,23 @@ authors = [
     "Philip Wafula <phil@mangohabanero.dev>",
     "Louis Holbrook <dev@holbrook.no>",
     "William Luke <williamluke4@gmail.com>",
-]
-license = "LICENSE.md"
+    ]
+license = "GPL-3.0-or-later"
+keywords = [
+    "cic",
+    "cic-network",
+    "cic-types",
+    "cic-types-descriptors",
+    ]
+classifiers = [
+    "Programming Language :: Python :: 3",
+	"Operating System :: OS Independent",
+	"Development Status :: 3 - Alpha",
+	"Environment :: No Input/Output (Daemon)",
+	"Intended Audience :: Developers",
+	"License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
+    "Topic :: Software Development :: Libraries :: Python Modules"
+    ]
 
 [[tool.poetry.source]]
 name = "grassroots_economics"
