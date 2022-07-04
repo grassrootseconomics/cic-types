@@ -6,23 +6,18 @@ authors = [
     "Philip Wafula <phil@mangohabanero.dev>",
     "Louis Holbrook <dev@holbrook.no>",
     "William Luke <williamluke4@gmail.com>",
-    ]
+]
 license = "GPL-3.0-or-later"
-keywords = [
-    "cic",
-    "cic-network",
-    "cic-types",
-    "cic-types-descriptors",
-    ]
+keywords = ["cic", "cic-network", "cic-types", "cic-types-descriptors"]
 classifiers = [
     "Programming Language :: Python :: 3",
-	"Operating System :: OS Independent",
-	"Development Status :: 3 - Alpha",
-	"Environment :: No Input/Output (Daemon)",
-	"Intended Audience :: Developers",
-	"License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
-    "Topic :: Software Development :: Libraries :: Python Modules"
-    ]
+    "Operating System :: OS Independent",
+    "Development Status :: 3 - Alpha",
+    "Environment :: No Input/Output (Daemon)",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
 
 [[tool.poetry.source]]
 name = "grassroots_economics"
@@ -33,7 +28,7 @@ secondary = true
 python = "^3.9"
 python-gnupg = "^0.4.9"
 vobject = "^0.9.6"
-chainlib-eth = "^0.3.1"
+chainlib-eth = "~0.1.0"
 requests = "^2.28.0"
 jsonschema = "^4.6.0"
 phonenumbers = "^8.12.50"
