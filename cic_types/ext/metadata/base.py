@@ -4,13 +4,15 @@ import logging
 import os
 from typing import Dict, Union
 
-# external imports
-
-# local imports
-from .signer import Signer
 from cic_types.condiments import MetadataPointer
 from cic_types.ext.requests import error_handler, make_request
 from cic_types.processor import generate_metadata_pointer
+
+# local imports
+from .signer import Signer
+
+# external imports
+
 
 logg = logging.getLogger(__file__)
 
@@ -19,9 +21,12 @@ class Metadata:
     """
     :cvar base_url: The base url or the metadata server.
     :type base_url: str
+    :cvar auth_token: The auth token for the metadata server. 
+    :type auth_token: str
     """
 
     base_url = None
+    auth_token = None
 
 
 class MetadataRequestsHandler(Metadata):
@@ -32,7 +37,8 @@ class MetadataRequestsHandler(Metadata):
         self.engine = engine
         self.headers = {
             'X-CIC-AUTOMERGE': 'server',
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': f'Basic {self.auth_token}'
         }
         self.identifier = identifier
         if cic_type == MetadataPointer.NONE:
@@ -86,4 +92,3 @@ class MetadataRequestsHandler(Metadata):
         if not isinstance(result_data, dict):
             raise ValueError(f'invalid result data object: {result_data}.')
         return result
-
