@@ -4,15 +4,11 @@ import logging
 import os
 from typing import Dict, Union
 
+# local imports
 from cic_types.condiments import MetadataPointer
+from cic_types.ext.metadata.signer import Signer
 from cic_types.ext.requests import error_handler, make_request
 from cic_types.processor import generate_metadata_pointer
-
-# local imports
-from .signer import Signer
-
-# external imports
-
 
 logg = logging.getLogger(__file__)
 
@@ -49,12 +45,13 @@ class MetadataRequestsHandler(Metadata):
                 cic_type=self.cic_type
             )
         if self.base_url:
-            self.url = os.path.join(self.base_url, self.metadata_pointer)
+            self.url: str = os.path.join(self.base_url, self.metadata_pointer)
 
     def create(self, data: Union[Dict, str]):
         """"""
         data = json.dumps(data).encode('utf-8')
-        result = make_request(method='POST', url=self.url, data=data, headers=self.headers)
+        result = make_request(method='POST', url=self.url,
+                              data=data, headers=self.headers)
 
         error_handler(result=result)
         metadata = result.json()
@@ -75,7 +72,8 @@ class MetadataRequestsHandler(Metadata):
             }
         }
         formatted_data = json.dumps(formatted_data)
-        result = make_request(method='PUT', url=self.url, data=formatted_data, headers=self.headers)
+        result = make_request(method='PUT', url=self.url,
+                              data=formatted_data, headers=self.headers)
         logg.info(f'signed metadata submission status: {result.status_code}.')
         error_handler(result=result)
         try:
