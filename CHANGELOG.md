@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+##[0.2.5] 
+- Revert chainlib-eth dep from ~0.3.0 -> ~0.1.0
+- Add the ability to set MetadataRequestsHandler.auth_token = metadata_auth_token
+
 ##[0.2.2] 
 - fix: update deps
 

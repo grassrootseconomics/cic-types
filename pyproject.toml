@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "cic-types"
-version = "0.2.4"
+version = "0.2.5"
 description = "Defines descriptors for data objects specific to the CIC-Network."
 authors = [
     "Philip Wafula <phil@mangohabanero.dev>",
