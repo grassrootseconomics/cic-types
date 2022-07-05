@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "cic-types"
-version = "0.2.6"
+version = "0.2.7"
 description = "Defines descriptors for data objects specific to the CIC-Network."
 authors = [
     "Philip Wafula <phil@mangohabanero.dev>",
@@ -39,6 +39,7 @@ pytest = "^7.1.2"
 pytest-cov = "^3.0.0"
 pytest-mock = "^3.7.0"
 requests-mock = "^1.9.3"
+mypy = "^0.961"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

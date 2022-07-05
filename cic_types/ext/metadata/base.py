@@ -84,7 +84,7 @@ class MetadataRequestsHandler(Metadata):
 
     def query(self):
         """"""
-        result = make_request(method='GET', url=self.url)
+        result = make_request(method='GET', url=self.url, headers=self.headers)
         error_handler(result=result)
         result_data = result.json()
         if not isinstance(result_data, dict):
