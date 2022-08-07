@@ -107,7 +107,7 @@ class Person:
         self.tel = v_card_data.get("tel")
 
 
-    def serialize(self):
+    def serialize(self, region: str):
         """This function serializes a person type python object into a python dict object.
         :return: A dict representation of data as stored in cic-meta.
         :rtype: dict
@@ -122,7 +122,8 @@ class Person:
                 email=self.email,
                 family_name=self.family_name,
                 given_name=self.given_name,
-                tel=self.tel
+                tel=self.tel,
+                region=region
             )
         }
 
