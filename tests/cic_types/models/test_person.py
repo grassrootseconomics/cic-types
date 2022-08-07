@@ -32,7 +32,7 @@ def test_person(person_metadata):
     assert person.given_name == v_card_data.get("given")
     assert person.tel == v_card_data.get("tel")
 
-    person_serialized = person.serialize()
+    person_serialized = person.serialize(region='KE')
 
     assert person_serialized.get("date_registered") == person_metadata.get("date_registered")
     assert person_serialized.get("gender") == person_metadata.get("gender")
@@ -54,7 +54,8 @@ def test_generate_vcard_from_contact_data(person_metadata, vcard_data):
         email=vcard_data.get("email"),
         family_name=vcard_data.get("family"),
         given_name=vcard_data.get("given"),
-        tel=vcard_data.get("tel")
+        tel=vcard_data.get("tel"),
+        region='KE'
     )
     assert person_metadata.get("vcard") == v_card
 
