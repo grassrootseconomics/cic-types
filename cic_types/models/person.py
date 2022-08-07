@@ -169,13 +169,15 @@ def get_contact_data_from_vcard(vcard: str):
     return contact_data
 
 
-def generate_vcard_from_contact_data(family_name: str, given_name: str, tel: str, email: str = None):
+def generate_vcard_from_contact_data(family_name: str, given_name: str, region: str, tel: str, email: str = None):
     """This function generates a base64 encoded representation of a vCard object containing a user's contact data.
     :type email: str | None
     :param family_name: A user's surname formatted to read family as per vCard object conventions.
     :type family_name: str
     :param given_name: A user's given name.
     :type given_name: str
+    : param region: The country code whose E164 format a phone number should be converted to.
+    : param region: str
     :param tel: An E164 formatted phone number associated with a user's account.
     :type tel: str
     :return: A base64 encoded representation of a vcard object.
@@ -183,7 +185,7 @@ def generate_vcard_from_contact_data(family_name: str, given_name: str, tel: str
     """
 
     # process phone number
-    tel = phone_number_to_e164(phone_number=tel, region="KE")
+    tel = phone_number_to_e164(phone_number=tel, region=region)
     v_card = vobject.vCard()
     if email:
         v_card.add("email")
